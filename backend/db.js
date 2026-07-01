@@ -5,7 +5,9 @@ dotenv.config();
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/lms-learn');
+    const dbUri = process.env.MONGODB_URI;
+    console.log('Database Connection Status Check: MONGODB_URI is', dbUri ? `Defined (starts with ${dbUri.substring(0, 12)}...)` : 'Undefined');
+    const conn = await mongoose.connect(dbUri || 'mongodb://127.0.0.1:27017/lms-learn');
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.error(`MongoDB Connection Error: ${error.message}`);
